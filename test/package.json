@@ -1,0 +1,16 @@
+{
+  "name": "pos-terminal",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bwip-js": "^4.7.0",
+    "canvas": "^3.2.0",
+    "node-thermal-printer": "^4.5.0",
+    "qrcode": "^1.5.4"
+  }
+}
