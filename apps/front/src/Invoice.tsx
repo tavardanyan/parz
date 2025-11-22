@@ -100,13 +100,13 @@ export default function Invoice({ items: order }) {
     let amount = 0;
     let res = null;
     const activeOrder = orders.find(o => o.id === id);
-    const data = {
-      items: activeOrder.items.map((i, index) => {
+    // Prepare HDM receipt data
+    const hdmData = {
+      items: activeOrder.items.map((i: InvoiceItem, index: number) => {
         amount += i.price * i.qty;
         return {
-          productCode: index,
-          name: i.name,
-          description: i.description,
+          productCode: String(index),
+          productName: i.name,
           price: i.price,
           qty: i.qty,
           dep: 1,
@@ -115,22 +115,14 @@ export default function Invoice({ items: order }) {
         }
       }),
       mode: 2,
-      paidAmount: 0,
-      paidAmountCard: 0,
-      status: 'paid',
-      id,
+      paidAmount: method === 'cash' ? amount : 0,
+      paidAmountCard: method === 'card' ? amount : 0,
     };
 
-    if (method === 'card') {
-      data.status = 'pending'
-      data.paidAmountCard = amount;
-    } else {
-      data.paidAmount = amount;
+    if(amount) {
+      res = await hdmPrint(hdmData)
     }
 
-    if(amount) {
-      res = await receiptPrint(data)
-    }
     console.log('HDM result: ', res)
   }
 

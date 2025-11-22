@@ -92,20 +92,31 @@ export class HDMClient {
   async _tx(fn, body, useB = false) {
     await this._ensureSock();
     const key  = useB ? this._keyB : this._keyA;
-    const enc  = enc3des(Buffer.from(JSON.stringify(body), 'utf8'), key);
+    const bodyStr = JSON.stringify(body);
+    console.log('Request body:', bodyStr);
+    console.log('Encryption key:', key.toString('hex'));
+    const enc  = enc3des(Buffer.from(bodyStr, 'utf8'), key);
     this._sock.write(Buffer.concat([mkHeader(fn, enc.length), enc]));
 
     const h    = await this._read(HDR_RES);
+    console.log('Response header (hex):', h.toString('hex'));
+    console.log('Response header (bytes):', Array.from(h));
     const code = h[2];
     const len  = h.readUInt16BE(7);
+    console.log(`Response code: 0x${code.toString(16)}, length: ${len}`);
 
     let obj = {};
     if (len) {
-      const plain = dec3des(await this._read(len), key).toString('utf8');
+      const encResp = await this._read(len);
+      console.log('Encrypted response (hex):', encResp.toString('hex'));
+      const plain = dec3des(encResp, key).toString('utf8');
+      console.log('Decrypted response:', plain);
       obj = plain ? JSON.parse(plain) : {};
     }
-    if (code !== 0x10 && code !== 0x02)
-      throw new Error(`device error 0x${code.toString(16)}`);
+    // Response codes: 0x01 = login success, 0x02 = general success, 0x10 = success
+    // Error codes are higher values (0xC8 = 200, etc.)
+    if (code >= 0x10 && code !== 0x10)
+      throw new Error(`device error 0x${code.toString(16)}: ${obj?.message || 'Unknown error'}`);
     return obj;
   }
 
@@ -178,3 +189,28 @@ export class HDMClient {
     return this._sessionCall(0x0f);
   }
 }
+
+// const HDM = new HDMClient({
+//   ip: "192.168.0.222",
+//   port: 1025,
+//   password: "JcYZf4Th"
+// })
+// await HDM.login({ cashier: 3, pin: 3 })
+// await HDM.printReceipt({
+//   items: [
+//     {
+//       productCode: '398',
+//       productName: 'Թխվածքաբլիթ կարագով',
+//       price: 200,
+//       qty: 1,
+//       dep: 1,
+//       discount: 190,
+//       discountType: 2,
+//       adgCode: '1602',
+//       unit: 'Հատ'
+//     }
+//   ],
+//   mode: 2,
+//   paidAmount: 10,
+//   paidAmountCard: 0,
+// });

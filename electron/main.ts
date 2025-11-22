@@ -19,9 +19,9 @@ const __dirname = path.dirname(__filename);
 const db = new SupabaseClient();
 
 const HDM = new HDMClient({
-  ip: "192.168.1.123",
+  ip: "192.168.0.222",
   port: 1025,
-  password: "12345678"
+  password: "JcYZf4Th"
 })
 
 // 🪟 Create Electron window
@@ -111,37 +111,51 @@ ipcMain.handle("hdm", async (_event, data: any) => {
     errors: [],
   }
   try {
-    console.log('firstawait HDM.getStatus()');
-    console.log('Logging in to HDM...', await HDM.getOperatorList());
-    try {
-      await HDM.login({ cashier: 1111, pin: 1111 });
-    } catch (error) {
-      await HDM.login({ cashier: 4321, pin: 4321 });
-    }
-    
-  } catch (error) {
-    console.log('ooooopa', error)
-  }
-  await HDM.printReceipt(data ?? {
-    items: [
-      {
-        productCode: '398',
-        productName: 'Թխվածքաբլիթ կարագով',
-        price: 200,
-        qty: 1,
-        dep: 1,
-        discount: 190,
-        discountType: 2,
-        adgCode: '1602',
-        unit: 'Հատ'
-      }
-    ],
-    mode: 2,
-    paidAmount: 0,
-    paidAmountCard: 10,
-  });
+    console.log('Getting operator list...');
+    const operators = await HDM.getOperatorList();
+    console.log('Operators:', operators);
 
-  return result; // can be Buffer or Uint8Array
+    console.log('Logging in to HDM...');
+    try {
+      await HDM.login({ cashier: 3, pin: 3 });
+    } catch (error) {
+      console.log('Failed to login with cashier 3, trying cashier 2...', error);
+      await HDM.login({ cashier: 2, pin: 2 });
+    }
+    console.log('Login successful!');
+
+  } catch (error) {
+    console.log('HDM initialization error:', error);
+    result.errors.push(error?.message || String(error));
+    return result;
+  }
+
+  try {
+    result.result = await HDM.printReceipt(data ?? {
+      items: [
+        {
+          productCode: '398',
+          productName: 'Թխվածքաբլիթ կարագով',
+          price: 200,
+          qty: 1,
+          dep: 1,
+          discount: 190,
+          discountType: 2,
+          adgCode: '1602',
+          unit: 'Հատ'
+        }
+      ],
+      mode: 2,
+      paidAmount: 0,
+      paidAmountCard: 10,
+    });
+    console.log('Receipt printed successfully:', result.result);
+  } catch (error) {
+    console.log('Receipt printing error:', error);
+    result.errors.push(error?.message || String(error));
+  }
+
+  return result;
 });
 
 ipcMain.handle("tPrinter", async (_event, data: any) => {
