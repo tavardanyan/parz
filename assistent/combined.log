@@ -1,0 +1,80 @@
+{"level":"info","message":"Starting Telegram Supabase AI Bot...","timestamp":"2025-09-28T11:04:19.796Z"}
+{"level":"info","message":"Database schema set","tableCount":6,"timestamp":"2025-09-28T11:04:19.818Z"}
+{"level":"warn","message":"Could not verify Supabase connection. Some features may not work.","timestamp":"2025-09-28T11:04:20.609Z"}
+{"level":"info","message":"Starting Telegram Supabase AI Bot...","timestamp":"2025-09-28T11:05:46.110Z"}
+{"level":"info","message":"Database schema set","tableCount":6,"timestamp":"2025-09-28T11:05:46.134Z"}
+{"level":"warn","message":"Could not verify Supabase connection. Some features may not work.","timestamp":"2025-09-28T11:05:46.962Z"}
+{"level":"info","message":"Starting Telegram Supabase AI Bot...","timestamp":"2025-09-28T11:06:05.100Z"}
+{"level":"info","message":"Database schema set","tableCount":6,"timestamp":"2025-09-28T11:06:05.124Z"}
+{"level":"warn","message":"Could not verify Supabase connection. Some features may not work.","timestamp":"2025-09-28T11:06:05.585Z"}
+{"level":"info","message":"Starting Telegram Supabase AI Bot...","timestamp":"2025-09-28T11:08:48.798Z"}
+{"level":"info","message":"Database schema set","tableCount":6,"timestamp":"2025-09-28T11:08:48.821Z"}
+{"level":"warn","message":"Could not verify Supabase connection. Some features may not work.","timestamp":"2025-09-28T11:08:49.473Z"}
+{"level":"info","message":"Received query from user Can you give me random 5 products?","timestamp":"2025-09-28T11:09:24.967Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T11:09:25.138Z","userMessage":"Can you give me random 5 products?"}
+{"error":{"code":"insufficient_quota","error":{"code":"insufficient_quota","message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.","param":null,"type":"insufficient_quota"},"headers":{"alt-svc":"h3=\":443\"; ma=86400","cf-cache-status":"DYNAMIC","cf-ray":"9862c9ef980312f7-AMS","connection":"keep-alive","content-length":"337","content-type":"application/json; charset=utf-8","date":"Sun, 28 Sep 2025 11:09:29 GMT","server":"cloudflare","set-cookie":"__cf_bm=VdvkND5Bpn3qh1Tf8Cia3RDBiOqoHeRusAIfeX3hekg-1759057769-1.0.1.1-ZXdzotf8IX0CAyY6crYim6gYGgwFk5XSBS5O2iNEZSpJIEii29ZhoNKiwpnDObstsxOyh0ppLNWyMpFRE8x5A0idWukN7mSFeQ820Uttbo0; path=/; expires=Sun, 28-Sep-25 11:39:29 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None, _cfuvid=Y1OdRUtvG_9Mx47j0PSNadOJfoS3C9mlig4eUf5pv_w-1759057769039-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None","strict-transport-security":"max-age=31536000; includeSubDomains; preload","vary":"Origin","x-content-type-options":"nosniff","x-envoy-upstream-service-time":"7","x-openai-proxy-wasm":"v0.1","x-request-id":"req_1318b768d8944d199dcd00d7795916b2"},"param":null,"request_id":"req_1318b768d8944d199dcd00d7795916b2","status":429,"type":"insufficient_quota"},"level":"error","message":"LLM conversion error","timestamp":"2025-09-28T11:09:29.040Z","userMessage":"Can you give me random 5 products?"}
+{"error":{},"level":"error","message":"Error processing message Can you give me random 5 products?","timestamp":"2025-09-28T11:09:29.041Z","userId":349703935}
+{"level":"info","message":"Received query from user Can you give me random 5 products?","timestamp":"2025-09-28T11:16:52.282Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T11:16:52.399Z","userMessage":"Can you give me random 5 products?"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":49,"timestamp":"2025-09-28T11:16:54.846Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM products ORDER BY RANDOM() LIMIT 5;","timestamp":"2025-09-28T11:16:55.278Z"}
+{"error":{"code":"42601","details":null,"hint":null,"message":"syntax error at or near \";\""},"level":"error","message":"Supabase query error","query":"SELECT * FROM products ORDER BY RANDOM() LIMIT 5;","timestamp":"2025-09-28T11:16:56.233Z"}
+{"level":"info","message":"Received query from user give 3 products","timestamp":"2025-09-28T11:17:31.461Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T11:17:31.599Z","userMessage":"give 3 products"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":31,"timestamp":"2025-09-28T11:17:33.449Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM products LIMIT 3;","timestamp":"2025-09-28T11:17:33.857Z"}
+{"error":{"code":"42601","details":null,"hint":null,"message":"syntax error at or near \";\""},"level":"error","message":"Supabase query error","query":"SELECT * FROM products LIMIT 3;","timestamp":"2025-09-28T11:17:34.557Z"}
+{"level":"info","message":"Starting Telegram Supabase AI Bot...","timestamp":"2025-09-28T11:22:09.854Z"}
+{"level":"info","message":"Database schema set","tableCount":6,"timestamp":"2025-09-28T11:22:09.877Z"}
+{"level":"warn","message":"Could not verify Supabase connection. Some features may not work.","timestamp":"2025-09-28T11:22:10.291Z"}
+{"level":"info","message":"Received query from user give 3 products","timestamp":"2025-09-28T11:22:19.664Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T11:22:19.968Z","userMessage":"give 3 products"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":31,"timestamp":"2025-09-28T11:22:23.019Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM products LIMIT 3;","timestamp":"2025-09-28T11:22:23.655Z"}
+{"level":"info","message":"Query executed successfully","rowCount":3,"timestamp":"2025-09-28T11:22:24.025Z"}
+{"level":"info","message":"Received query from user give me all products where price is below 1000","timestamp":"2025-09-28T11:23:26.174Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T11:23:26.377Z","userMessage":"give me all products where price is below 1000"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":52,"timestamp":"2025-09-28T11:23:28.725Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM products WHERE price < 1000 LIMIT 100;","timestamp":"2025-09-28T11:23:29.044Z"}
+{"level":"info","message":"Query executed successfully","rowCount":2,"timestamp":"2025-09-28T11:23:29.704Z"}
+{"level":"info","message":"Starting Telegram Supabase AI Bot...","timestamp":"2025-09-28T12:18:57.613Z"}
+{"level":"info","message":"Database schema set","tableCount":6,"timestamp":"2025-09-28T12:18:57.704Z"}
+{"level":"warn","message":"Could not verify Supabase connection. Some features may not work.","timestamp":"2025-09-28T12:18:58.772Z"}
+{"level":"info","message":"Received query from user Ցույց տուր ապրանքներ որոնց մեջ առկա են վարունգ","timestamp":"2025-09-28T12:19:53.951Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T12:19:54.162Z","userMessage":"Ցույց տուր ապրանքներ որոնց մեջ առկա են վարունգ"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":161,"timestamp":"2025-09-28T12:19:59.473Z"}
+{"error":{"on":{"method":"sendMessage","payload":{"chat_id":349703935,"parse_mode":"Markdown","text":"🔍 *Generated SQL:*\n```sql\nSELECT p.* FROM products p JOIN categories_products cp ON p.id = cp.productid JOIN categories c ON cp.categoryid = c.id WHERE c.name ILIKE '%վարունգ%' LIMIT 100;\n```\n\n*Explanation:* This query retrieves all products that are associated with categories containing the word 'վարունգ' (cucumber) in their name. It uses JOINs to connect the products table with the categories_products and categories tables, filtering the results based on the category name."}},"response":{"description":"Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 414","error_code":400,"ok":false}},"level":"error","message":"Error processing message Ցույց տուր ապրանքներ որոնց մեջ առկա են վարունգ","timestamp":"2025-09-28T12:19:59.575Z","userId":349703935}
+{"level":"info","message":"Received query from user Give me all products with ingredients cucumber","timestamp":"2025-09-28T12:20:30.155Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T12:20:30.396Z","userMessage":"Give me all products with ingredients cucumber"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":107,"timestamp":"2025-09-28T12:20:32.732Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT p.* FROM products p JOIN ingredients i ON p.imageid = i.imageid WHERE i.name = 'cucumber' LIMIT 100;","timestamp":"2025-09-28T12:20:32.983Z"}
+{"error":{"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"p.imageId\".","message":"column p.imageid does not exist"},"level":"error","message":"Supabase query error","query":"SELECT p.* FROM products p JOIN ingredients i ON p.imageid = i.imageid WHERE i.name = 'cucumber' LIMIT 100;","timestamp":"2025-09-28T12:20:33.585Z"}
+{"level":"info","message":"Received query from user Give me all products in price range 1200 to 2000","timestamp":"2025-09-28T12:21:12.553Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T12:21:12.666Z","userMessage":"Give me all products in price range 1200 to 2000"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":67,"timestamp":"2025-09-28T12:21:14.490Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM products WHERE price BETWEEN 1200 AND 2000 LIMIT 100;","timestamp":"2025-09-28T12:21:14.765Z"}
+{"level":"info","message":"Query executed successfully","rowCount":14,"timestamp":"2025-09-28T12:21:15.236Z"}
+{"level":"info","message":"Received query from user Give me all products with price below 2000","timestamp":"2025-09-28T12:22:10.158Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T12:22:10.267Z","userMessage":"Give me all products with price below 2000"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":52,"timestamp":"2025-09-28T12:22:12.483Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM products WHERE price < 2000 LIMIT 100;","timestamp":"2025-09-28T12:22:12.729Z"}
+{"level":"info","message":"Query executed successfully","rowCount":16,"timestamp":"2025-09-28T12:22:13.437Z"}
+{"level":"info","message":"Received query from user Տուր ինձ 3 ապրանքներ","timestamp":"2025-09-28T12:23:07.361Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T12:23:07.472Z","userMessage":"Տուր ինձ 3 ապրանքներ"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":31,"timestamp":"2025-09-28T12:23:09.060Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM products LIMIT 3;","timestamp":"2025-09-28T12:23:09.329Z"}
+{"level":"info","message":"Query executed successfully","rowCount":3,"timestamp":"2025-09-28T12:23:09.902Z"}
+{"level":"info","message":"Received query from user Տուր ինձ բոլոր ապրանքները որտեղ գինը ցածր է 1000 ից","timestamp":"2025-09-28T12:23:45.553Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T12:23:45.671Z","userMessage":"Տուր ինձ բոլոր ապրանքները որտեղ գինը ցածր է 1000 ից"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":52,"timestamp":"2025-09-28T12:23:48.539Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM products WHERE price < 1000 LIMIT 100;","timestamp":"2025-09-28T12:23:48.805Z"}
+{"level":"info","message":"Query executed successfully","rowCount":2,"timestamp":"2025-09-28T12:23:49.352Z"}
+{"level":"info","message":"Received query from user Give me all categories","timestamp":"2025-09-28T12:34:16.510Z","userId":349703935,"username":"tavardanyan"}
+{"level":"debug","message":"Requesting SQL conversion from LLM","timestamp":"2025-09-28T12:34:16.621Z","userMessage":"Give me all categories"}
+{"level":"info","message":"LLM conversion successful","readOnly":true,"sqlLength":35,"timestamp":"2025-09-28T12:34:18.432Z"}
+{"level":"info","message":"Executing SQL query","query":"SELECT * FROM categories LIMIT 100;","timestamp":"2025-09-28T12:34:18.693Z"}
+{"level":"info","message":"Query executed successfully","rowCount":3,"timestamp":"2025-09-28T12:34:19.456Z"}
+{"error":{"cause":{"code":"ENOTFOUND","errno":"ENOTFOUND","message":"request to https://api.openai.com/v1/chat/completions failed, reason: getaddrinfo ENOTFOUND api.openai.com","type":"system"}},"level":"error","message":"Error formatting results","timestamp":"2025-09-28T12:35:02.571Z"}
+{"error":{"code":"EADDRNOTAVAIL","errno":"EADDRNOTAVAIL","message":"request to https://api.telegram.org/bot5697834684:[REDACTED]/sendMessage failed, reason: read EADDRNOTAVAIL","type":"system"},"level":"error","message":"Error processing message Give me all categories","timestamp":"2025-09-28T12:35:09.195Z","userId":349703935}
+{"error":{"code":"ENOTFOUND","errno":"ENOTFOUND","message":"request to https://api.telegram.org/bot5697834684:[REDACTED]/sendMessage failed, reason: getaddrinfo ENOTFOUND api.telegram.org","type":"system"},"level":"error","message":"Bot error","timestamp":"2025-09-28T12:35:09.198Z","userId":349703935}
+{"level":"info","message":"Starting Telegram Supabase AI Bot...","timestamp":"2025-09-28T15:51:39.040Z"}

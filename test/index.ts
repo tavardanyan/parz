@@ -6,7 +6,7 @@ import { readFileSync } from 'fs';
 
 const { printer: ThermalPrinter, types } = ThermalPrinterPkg;
 
-const printerIp = '192.168.1.100';
+const printerIp = '192.168.1.114';
 const printer = new ThermalPrinter({
   type: types.EPSON,
   interface: `tcp://${printerIp}`

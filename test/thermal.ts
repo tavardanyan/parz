@@ -601,7 +601,7 @@ class Thermal {
 
 const tPrinter = new Thermal({
   size: 72,
-  ip: '192.168.1.100'
+  ip: '192.168.1.114'
 });
 
 tPrinter.setInfo(ReceiptSections.company, {
@@ -609,7 +609,7 @@ tPrinter.setInfo(ReceiptSections.company, {
   address: 'Թումանյան 1, Երևան',
   phone: '+374 10 123456',
   name: 'Իմ Ընկերությունը ՍՊԸ',
-  brandName: 'GrillGo',
+  brandName: 'Piccola',
   logo: {
     show: false
   }

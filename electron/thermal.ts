@@ -3,6 +3,17 @@ import ThermalPrinterPkg from 'node-thermal-printer';
 import { createCanvas, loadImage, type CanvasRenderingContext2D } from 'canvas';
 import bwipjs from 'bwip-js';
 import { CryptoUtil } from './CryptoUtil.js';
+import QRCode from "qrcode";
+
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+
+// __dirname equivalent in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const imagePath = path.join(__dirname, "logo.png");
 
 const { printer: ThermalPrinter, types } = ThermalPrinterPkg;
 
@@ -228,6 +239,43 @@ export class Thermal {
   
     return lines;
   }
+
+  private async drawQRCode(data: string, options?: { size?: number; label?: string }) {
+    try {
+      // Default options
+      const size = options?.size ?? 200;
+  
+      // Generate QR code as data URL
+      const qrDataUrl = await QRCode.toDataURL(data, {
+        errorCorrectionLevel: "H", // high error correction
+        margin: 2,
+        scale: 10,
+      });
+  
+      // Load QR into canvas
+      const img = await loadImage(qrDataUrl);
+  
+      // Center QR
+      const x = (this.width - size) / 2;
+      this.ctx.drawImage(img, x, this.Y, size, size);
+  
+      // Move Y below QR
+      this.Y += size + 10;
+  
+      // Optional label under QR
+      if (options?.label) {
+        this.ctx.font = "20px Arial";
+        this.ctx.fillStyle = "black";
+        this.ctx.textAlign = "center";
+        this.ctx.fillText(options.label, this.width / 2, this.Y);
+        this.Y += 30;
+        this.ctx.textAlign = "left"; // reset
+      }
+    } catch (err) {
+      console.error("❌ Failed to draw QR:", err);
+    }
+  }
+  
   
   public async prePrint() {
     if (this.products.length === 0) {
@@ -435,12 +483,16 @@ export class Thermal {
     this.setupContext();
 
     this.space(3);
-    this.drawBrandTitle(this.info.company.brandName || 'BRAND NAME');
+    // this.drawBrandTitle(this.info.company.brandName || 'BRAND NAME');
+    await this.drawLogo(imagePath);
     this.drawHeader();
     this.space(1);
     this.drawProducts();
     this.drawBillingSection();
-
+    await this.drawQRCode("https://t.me/Picola_test_bot?start=12345", {
+      size: 300,
+      label: "Scan and get 10% discount!",
+    });
     await this.drawReceiptBarcode();
     await this.printReceipt()
 
@@ -466,7 +518,7 @@ export class Thermal {
   }
 
   private calculateHeight(delta: number = 0) {
-    this.height = this.headerHeight + (this.products.length * this.productLineHeight) + 950 + delta;
+    this.height = this.headerHeight + (this.products.length * this.productLineHeight) + 1400 + delta;
   }
 
   private createCanvasContext() {
@@ -649,6 +701,22 @@ export class Thermal {
     this.ctx.textBaseline = "alphabetic"; // reset baseline
     this.ctx.fillStyle = "black"; // reset color
     this.ctx.font = this.font[this.language]; // reset font
+  }
+
+  private async drawLogo(url: string) {
+    try {
+      const logo = await loadImage(url); // logo must be in project folder
+      const logoMaxWidth = this.width - this.margin * 2;
+      const scale = logo.width > logoMaxWidth ? logoMaxWidth / logo.width : 1;
+      const logoWidth = logo.width * scale;
+      const logoHeight = logo.height * scale;
+      const logoX = (this.width - logoWidth) / 2;
+
+      this.ctx.drawImage(logo, logoX, this.Y, logoWidth, logoHeight);
+      this.Y += logoHeight + 20; // add spacing under logo
+    } catch (err) {
+      console.warn('⚠️ Logo not found, skipping...');
+    }
   }
 
   private async drawReceiptBarcode(value: string = '', text: string = '') {

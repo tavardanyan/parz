@@ -19,9 +19,9 @@ const __dirname = path.dirname(__filename);
 const db = new SupabaseClient();
 
 const HDM = new HDMClient({
-  ip: "192.168.1.103",
+  ip: "192.168.1.123",
   port: 1025,
-  password: "Aa1111Bb"
+  password: "12345678"
 })
 
 // 🪟 Create Electron window
@@ -29,6 +29,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     fullscreen: true,
     webPreferences: {
+      // webSecurity: false,
       contextIsolation: true,
       preload: app.isPackaged
           ? path.join(process.resourcesPath, "preload.js")   // prod
@@ -153,15 +154,15 @@ ipcMain.handle("tPrinter", async (_event, data: any) => {
   if (data && data.items && data.items.length) {
     const tPrinter = new Thermal({
       size: 72,
-      ip: '192.168.1.100'
+      ip: '192.168.1.114'
     });
     
     tPrinter.setInfo(ReceiptSections.company, {
-      taxId: '01234567',
-      address: 'Թումանյան 1, Երևան',
-      phone: '+374 10 123456',
-      name: 'Իմ Ընկերությունը ՍՊԸ',
-      brandName: 'GrillGo',
+      taxId: '08290572',
+      address: 'Միասնիկյան 32/2, Դիլիջան',
+      phone: '+374 44 621112',
+      name: 'Մեգի ՍՊԸ',
+      brandName: 'Piccola',
       logo: {
         show: false
       }
@@ -173,7 +174,7 @@ ipcMain.handle("tPrinter", async (_event, data: any) => {
     });
     
     tPrinter.setInfo(ReceiptSections.customer, {
-      name: 'Մանե Մ.',
+      name: 'Անուն Ազգանուն',
       id: '5678'
     });
 
@@ -201,6 +202,26 @@ ipcMain.handle("tPrinter", async (_event, data: any) => {
 
     tPrinter.addProducts(data.items);
     if (data.status === 'paid') {
+      console.log(await HDM.getOperatorList());
+      const res = await HDM.printReceipt({
+        items: [
+          {
+            productCode: '398',
+            productName: 'Թխվածքաբլիթ կարագով',
+            price: 200,
+            qty: 1,
+            dep: 1,
+            discount: 190,
+            discountType: 2,
+            adgCode: '1602',
+            unit: 'Հատ'
+          }
+        ],
+        mode: 2,
+        paidAmount: 0,
+        paidAmountCard: 10,
+      });
+      console.log('HDM receipt result: ', res)
       await tPrinter.print();
     } 
 

@@ -1,6 +1,6 @@
 {
   "name": "ParzPOS",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "main": "dist-electron/main.js",
   "type": "module",
   "scripts": {
@@ -55,6 +55,14 @@
         "AppImage"
       ],
       "icon": "assets/icons"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "runAfterFinish": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ParzPOS"
     }
   },
   "devDependencies": {
