@@ -58,19 +58,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Build main process
-        run: npm run build:main
-
-      - name: Build renderer process
-        run: npm run build:renderer
-
       - name: Build for Mac
         if: matrix.platform == 'mac'
-        run: electron-builder --publish never
+        run: npm run build
 
       - name: Build for Windows
         if: matrix.platform == 'win'
-        run: electron-builder --win --x64 --publish never
+        run: npm run build:win
 
       - name: Upload artifacts (Mac)
         if: matrix.platform == 'mac'
