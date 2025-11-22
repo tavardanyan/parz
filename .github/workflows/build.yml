@@ -42,20 +42,13 @@ jobs:
           cd apps/front
           npm ci
 
-      - name: Build application
-        run: npm run build
-
       - name: Build for Mac
         if: matrix.platform == 'mac'
         run: npm run build
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build for Windows
         if: matrix.platform == 'win'
         run: npm run build:win
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifacts (Mac)
         if: matrix.platform == 'mac'
