@@ -52,14 +52,29 @@ jobs:
       - name: Build for Mac
         if: matrix.platform == 'mac'
         run: npm run build
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
 
       - name: Build for Windows x64
         if: matrix.platform == 'win' && matrix.arch == 'x64'
         run: npm run build:win
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
 
       - name: Build for Windows ia32
         if: matrix.platform == 'win' && matrix.arch == 'ia32'
         run: npm run build:win32
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - name: List build outputs (Mac)
+        if: matrix.platform == 'mac'
+        run: ls -lh dist/
+
+      - name: List build outputs (Windows)
+        if: matrix.platform == 'win'
+        run: Get-ChildItem -Path dist -Recurse
+        shell: pwsh
 
       - name: Upload artifacts (Mac)
         if: matrix.platform == 'mac'
