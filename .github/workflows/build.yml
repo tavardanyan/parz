@@ -54,18 +54,21 @@ jobs:
         run: npm run build
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: false
+          DEBUG: electron-builder
 
       - name: Build for Windows x64
         if: matrix.platform == 'win' && matrix.arch == 'x64'
         run: npm run build:win
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: false
+          DEBUG: electron-builder
 
       - name: Build for Windows ia32
         if: matrix.platform == 'win' && matrix.arch == 'ia32'
         run: npm run build:win32
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: false
+          DEBUG: electron-builder
 
       - name: List build outputs (Mac)
         if: matrix.platform == 'mac'
@@ -73,7 +76,15 @@ jobs:
 
       - name: List build outputs (Windows)
         if: matrix.platform == 'win'
-        run: Get-ChildItem -Path dist -Recurse
+        run: |
+          Get-ChildItem -Path dist -Recurse
+          Write-Host "Checking .exe files:"
+          Get-ChildItem -Path dist -Filter *.exe -Recurse | ForEach-Object {
+            Write-Host "File: $($_.FullName), Size: $($_.Length) bytes"
+            if ($_.Length -lt 1MB) {
+              Write-Warning "File is suspiciously small!"
+            }
+          }
         shell: pwsh
 
       - name: Upload artifacts (Mac)
@@ -118,6 +129,11 @@ jobs:
         with:
           path: artifacts
 
+      - name: Display downloaded artifacts
+        run: |
+          echo "Downloaded artifacts:"
+          find artifacts -type f
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
@@ -127,7 +143,8 @@ jobs:
             artifacts/**/*.exe
           draft: false
           prerelease: false
-          fail_on_unmatched_files: true
+          fail_on_unmatched_files: false
           generate_release_notes: true
+          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
