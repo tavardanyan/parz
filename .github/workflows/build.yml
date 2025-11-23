@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies (frontend)
         run: |
           cd apps/front
-          npm ci
+          npm install
 
       - name: Setup Python (Windows native builds)
         if: matrix.platform == 'win'
