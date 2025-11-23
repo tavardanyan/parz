@@ -30,7 +30,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Cache electron binaries
         uses: actions/cache@v4
@@ -38,7 +37,7 @@ jobs:
           path: |
             ~/.cache/electron
             ~/.cache/electron-builder
-          key: ${{ runner.os }}-electron-${{ hashFiles('package-lock.json', 'apps/front/package-lock.json') }}
+          key: ${{ runner.os }}-electron-${{ hashFiles('**/package-lock.json') || 'fallback' }}
           restore-keys: |
             ${{ runner.os }}-electron-
 
