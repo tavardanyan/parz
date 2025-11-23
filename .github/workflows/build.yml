@@ -35,10 +35,19 @@ jobs:
       - name: Install dependencies (root)
         run: npm ci
 
-      - name: Install dependencies (frontend)
+      - name: Install dependencies (frontend) - macOS
+        if: matrix.platform == 'mac'
         run: |
           cd apps/front
           npm ci
+
+      - name: Install dependencies (frontend) - Windows
+        if: matrix.platform == 'win'
+        run: |
+          cd apps/front
+          if (Test-Path package-lock.json) { Remove-Item package-lock.json }
+          npm install
+        shell: pwsh
 
       - name: Build for Mac
         if: matrix.platform == 'mac'
