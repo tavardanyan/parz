@@ -263,7 +263,7 @@ export default function Invoice({ items: order }) {
       </Box>
 
       <Box mt={4} textAlign="right">
-        <Box
+        {/* <Box
           component="img"
           src={idram}
           alt="No Image" 
@@ -278,7 +278,7 @@ export default function Invoice({ items: order }) {
             m: 1
           }}
           onClick={() => alert('Idram not configured!')}
-        ></Box>
+        ></Box> */}
         <Box
           component="img"
           src={card}

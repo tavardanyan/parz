@@ -2,25 +2,23 @@ name: Build ParzPOS
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*'
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
 
 jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
         include:
           - os: macos-latest
             platform: mac
+            arch: ''
           - os: windows-latest
             platform: win
+            arch: x64
+          - os: windows-latest
+            platform: win
+            arch: ia32
 
     runs-on: ${{ matrix.os }}
 
@@ -62,9 +60,13 @@ jobs:
         if: matrix.platform == 'mac'
         run: npm run build
 
-      - name: Build for Windows
-        if: matrix.platform == 'win'
+      - name: Build for Windows x64
+        if: matrix.platform == 'win' && matrix.arch == 'x64'
         run: npm run build:win
+
+      - name: Build for Windows ia32
+        if: matrix.platform == 'win' && matrix.arch == 'ia32'
+        run: npm run build:win32
 
       - name: Upload artifacts (Mac)
         if: matrix.platform == 'mac'
@@ -76,11 +78,19 @@ jobs:
             dist/*.zip
           retention-days: 30
 
-      - name: Upload artifacts (Windows)
-        if: matrix.platform == 'win'
+      - name: Upload artifacts (Windows x64)
+        if: matrix.platform == 'win' && matrix.arch == 'x64'
         uses: actions/upload-artifact@v4
         with:
-          name: ParzPOS-Windows-${{ github.sha }}
+          name: ParzPOS-Windows-x64-${{ github.sha }}
+          path: dist/*.exe
+          retention-days: 30
+
+      - name: Upload artifacts (Windows ia32)
+        if: matrix.platform == 'win' && matrix.arch == 'ia32'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ParzPOS-Windows-ia32-${{ github.sha }}
           path: dist/*.exe
           retention-days: 30
 

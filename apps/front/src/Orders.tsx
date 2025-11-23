@@ -62,12 +62,12 @@ export default function Orders() {
         padding: 1,
         paddingRight: 0,
         paddingLeft: 0,
-        backgroundColor: 'background.paper',
+        backgroundColor: 'background.paper'
       }}
     >
       {/* {orders.map((order, index) => ( */}
         <TabPanel value={activeOrderId} index={activeOrderId}>
-          {activeOrderId}
+          {/* {activeOrderId} */}
           <Invoice items={orders.find(({ id }) => id === activeOrderId)}/>
         </TabPanel>
       {/* ))} */}
