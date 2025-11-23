@@ -54,7 +54,7 @@ export default function Checkout(props: { disableCustomTheme?: boolean }) {
       <CssBaseline enableColorScheme />
       <Box sx={{ position: 'fixed', top: '1rem', right: '1rem', display: 'flex', gap: '15px' }}>
         {/* <Yandex /> */}
-        <UserButton />
+        {/* <UserButton /> */}
         <ColorModeIconDropdown />
       </Box>
 
