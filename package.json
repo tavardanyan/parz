@@ -98,7 +98,6 @@
   "dependencies": {
     "@fontsource/roboto": "^5.2.6",
     "bwip-js": "^4.7.0",
-    "canvas": "^3.2.0",
     "concurrently": "^9.2.0",
     "cryptr": "^6.3.0",
     "electron-squirrel-startup": "^1.0.1",

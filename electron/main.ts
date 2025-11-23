@@ -7,7 +7,7 @@ import path from 'node:path';
 import url from 'node:url';
 import { SupabaseClient } from './supabase.js';
 import { HDMClient } from './hdm.js';
-import { Thermal, ReceiptSections } from './thermal.js';
+// import { Thermal, ReceiptSections } from './thermal.js';
 import { CryptoUtil } from './CryptoUtil.js';
 
 const require = createRequire(import.meta.url);
@@ -50,7 +50,7 @@ const createWindow = () => {
     );
   } else {
     mainWindow.loadURL("http://localhost:5173"); // dev server
-    mainWindow.webContents.openDevTools(); // optional
+    // mainWindow.webContents.openDevTools(); // optional
   }
 };
 
@@ -158,96 +158,96 @@ ipcMain.handle("hdm", async (_event, data: any) => {
   return result;
 });
 
-ipcMain.handle("tPrinter", async (_event, data: any) => {
-  console.log("📥 tPrinter request:");
-  const result = {
-    request: data,
-    result: null,
-    errors: [],
-  }
-  if (data && data.items && data.items.length) {
-    const tPrinter = new Thermal({
-      size: 72,
-      ip: '192.168.1.114'
-    });
+// ipcMain.handle("tPrinter", async (_event, data: any) => {
+//   console.log("📥 tPrinter request:");
+//   const result = {
+//     request: data,
+//     result: null,
+//     errors: [],
+//   }
+//   if (data && data.items && data.items.length) {
+//     const tPrinter = new Thermal({
+//       size: 72,
+//       ip: '192.168.1.114'
+//     });
     
-    tPrinter.setInfo(ReceiptSections.company, {
-      taxId: '08290572',
-      address: 'Միասնիկյան 32/2, Դիլիջան',
-      phone: '+374 44 621112',
-      name: 'Մեգի ՍՊԸ',
-      brandName: 'Piccola',
-      logo: {
-        show: false
-      }
-    });
+//     tPrinter.setInfo(ReceiptSections.company, {
+//       taxId: '08290572',
+//       address: 'Միասնիկյան 32/2, Դիլիջան',
+//       phone: '+374 44 621112',
+//       name: 'Մեգի ՍՊԸ',
+//       brandName: 'Piccola',
+//       logo: {
+//         show: false
+//       }
+//     });
 
-    tPrinter.setInfo(ReceiptSections.cashier, {
-      name: 'Անահիտ Ա.',
-      id: '1234'
-    });
+//     tPrinter.setInfo(ReceiptSections.cashier, {
+//       name: 'Անահիտ Ա.',
+//       id: '1234'
+//     });
     
-    tPrinter.setInfo(ReceiptSections.customer, {
-      name: 'Անուն Ազգանուն',
-      id: '5678'
-    });
+//     tPrinter.setInfo(ReceiptSections.customer, {
+//       name: 'Անուն Ազգանուն',
+//       id: '5678'
+//     });
 
-    tPrinter.setInfo(ReceiptSections.receipt, {
-      date: new Intl.DateTimeFormat("en-GB", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      }).format(new Date()),
-      number: data.id
-    });
+//     tPrinter.setInfo(ReceiptSections.receipt, {
+//       date: new Intl.DateTimeFormat("en-GB", {
+//         day: "2-digit",
+//         month: "2-digit",
+//         year: "numeric",
+//         hour: "2-digit",
+//         minute: "2-digit",
+//         hour12: false
+//       }).format(new Date()),
+//       number: data.id
+//     });
     
-    tPrinter.setInfo(ReceiptSections.billing, {
-      discount: 0,
-      delivery: 0,
-      cardAmount: data.paidAmountCard,
-      cashAmount: data.paidAmount,
-      subTotal: data.paidAmountCard || data.paidAmount,
-      total: data.paidAmountCard || data.paidAmount,
-      paymentStatus: 'Վճարված'
-    });
+//     tPrinter.setInfo(ReceiptSections.billing, {
+//       discount: 0,
+//       delivery: 0,
+//       cardAmount: data.paidAmountCard,
+//       cashAmount: data.paidAmount,
+//       subTotal: data.paidAmountCard || data.paidAmount,
+//       total: data.paidAmountCard || data.paidAmount,
+//       paymentStatus: 'Վճարված'
+//     });
 
-    tPrinter.addProducts(data.items);
-    if (data.status === 'paid') {
-      console.log(await HDM.getOperatorList());
-      const res = await HDM.printReceipt({
-        items: [
-          {
-            productCode: '398',
-            productName: 'Թխվածքաբլիթ կարագով',
-            price: 200,
-            qty: 1,
-            dep: 1,
-            discount: 190,
-            discountType: 2,
-            adgCode: '1602',
-            unit: 'Հատ'
-          }
-        ],
-        mode: 2,
-        paidAmount: 0,
-        paidAmountCard: 10,
-      });
-      console.log('HDM receipt result: ', res)
-      await tPrinter.print();
-    } 
+//     tPrinter.addProducts(data.items);
+//     if (data.status === 'paid') {
+//       console.log(await HDM.getOperatorList());
+//       const res = await HDM.printReceipt({
+//         items: [
+//           {
+//             productCode: '398',
+//             productName: 'Թխվածքաբլիթ կարագով',
+//             price: 200,
+//             qty: 1,
+//             dep: 1,
+//             discount: 190,
+//             discountType: 2,
+//             adgCode: '1602',
+//             unit: 'Հատ'
+//           }
+//         ],
+//         mode: 2,
+//         paidAmount: 0,
+//         paidAmountCard: 10,
+//       });
+//       console.log('HDM receipt result: ', res)
+//       await tPrinter.print();
+//     } 
 
-    if (data.status === 'pending') {
-      await tPrinter.prePrint();
-    }
+//     if (data.status === 'pending') {
+//       await tPrinter.prePrint();
+//     }
 
 
-  }
+//   }
 
-  return result; // can be Buffer or Uint8Array
-});
+//   return result; // can be Buffer or Uint8Array
+// });
 
 // ipcMain.handle("yandex-login", async () => {
 //   const vendorWindow = new BrowserWindow({
