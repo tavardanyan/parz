@@ -30,16 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Cache electron binaries
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/electron
-            ~/.cache/electron-builder
-          key: ${{ runner.os }}-electron-${{ hashFiles('**/package-lock.json') || 'fallback' }}
-          restore-keys: |
-            ${{ runner.os }}-electron-
+          cache: 'npm'
 
       - name: Install dependencies (root)
         run: npm ci
@@ -47,13 +38,7 @@ jobs:
       - name: Install dependencies (frontend)
         run: |
           cd apps/front
-          npm install
-
-      - name: Setup Python (Windows native builds)
-        if: matrix.platform == 'win'
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+          npm ci
 
       - name: Build for Mac
         if: matrix.platform == 'mac'
